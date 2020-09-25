@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/colorOfBackground"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.view.HomeActivity">
+
+    <include layout="@layout/ninty_degree_traingle_layout"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:src="@drawable/marvel"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/marvelStudioImage"
+        android:contentDescription="@string/todo" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/marvelStudioImage"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="@style/dotZeroTitle20"
+        android:text="@string/choose_your_hero"
+        android:id="@+id/choosYourHeroTitle"
+        />
+
+    <com.yarolegovich.discretescrollview.DiscreteScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/choosYourHeroTitle"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal"
+        android:id="@+id/superHeroview"
+        />
+
+</RelativeLayout>

@@ -1,0 +1,20 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation retrofit
+    implementation rx
+    implementation koin
+    implementation coroutines
+    testImplementation  mockWebServer
+    testImplementation junitTest
+    testImplementation junitImplementation
+    testImplementation 'androidx.test:rules:1.2.0'
+    testImplementation mockito
+
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"

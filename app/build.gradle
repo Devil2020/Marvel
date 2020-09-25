@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
+
+    defaultConfig {
+        applicationId "com.morse.marvel"
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    androidExtensions {
+        experimental = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation kotlinVersion
+    implementation kotlinKtx
+    implementation retrofit
+    implementation glide
+    implementation koin
+    implementation picasso
+    implementation legacy
+    implementation discreteScrollView
+    api project(path: ':presentation')
+    implementation project(path: ':data')
+    implementation project(path: ':domain')
+    implementation project(path: ':remote')
+    implementation project(path: ':ui')
+    annotationProcessor glideCompile
+    implementation room
+    implementation multidexLibrary
+    implementation liveData
+    implementation coroutines
+    implementation shimmer
+    implementation lottiee
+    implementation padging
+    implementation rx
+    implementation cardLayoutManager
+    implementation motion
+    implementation material
+    implementation viewPager2
+    implementation dotIndicator
+    implementation navigator
+
+    implementation recyclerview
+
+}
