@@ -27,7 +27,7 @@ class MarvelHerosRepositoryImpl : MarvelHerosRepositoryInterface {
                     } as ArrayList
                     it?.onNext(NetworkState.success<SuperHeroMarvelItem>(convertedResult))
                 }catch (e: Exception){
-                    if (e?.localizedMessage?.contains("Unable to resolve host name")!!){
+                    if (e?.localizedMessage?.contains("Unable to resolve host")!!){
                         it?.onNext(NetworkState.error<SuperHeroMarvelItem>(NetworkErrorType.NO_INTERNET))
                     }
                     else {
