@@ -12,6 +12,7 @@ import com.morse.presentation.state.ResultErrorState
 import com.morse.presentation.state.ResultState
 import com.morse.presentation.viewmodel.SuperHeroViewModel
 import com.morse.ui.R
+import com.morse.ui.databinding.ActivityHomeBinding
 import com.yarolegovich.discretescrollview.transform.Pivot
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -29,10 +30,12 @@ class HomeActivity : AppCompatActivity() {
     val homeViewModel : SuperHeroViewModel by viewModel<SuperHeroViewModel>()
     lateinit var compositeDisposable: CompositeDisposable
     var lastIndex = -1
+    lateinit var homeDataBinding : ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView( R.layout.activity_home)
+        homeDataBinding = DataBindingUtil.setContentView<ActivityHomeBinding>(this ,R.layout.activity_home)
+
         compositeDisposable = CompositeDisposable()
         superHeroview?.apply {
             this?.addOnItemChangedListener { viewHolder, adapterPosition ->
@@ -87,7 +90,10 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
             else if (it is ResultState.isLoading) {
-                loadingShimmerLayout?.startShimmer()
+                loadingShimmerLayout?.apply {
+                    visibility = View.VISIBLE
+                    startShimmer()
+                }
                 Toast.makeText(this , "Start Loading" , Toast.LENGTH_SHORT).show()
                 noInternetRoot?.apply {
                     visibility = View.INVISIBLE
