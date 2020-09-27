@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout >
 
+    <data>
+
+        <import type="com.morse.presentation.viewmodel.SuperHeroViewModel" />
+
+        <variable
+            name="superheroViewModel"
+            type="com.morse.presentation.viewmodel.SuperHeroViewModel" />
+
+    </data>
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -93,6 +103,7 @@
                 android:text="Try Again"
                 android:paddingHorizontal="20dp"
                 android:textAllCaps="false"
+                android:onClick="@{()->superheroViewModel.loadSuperHeros()}"
                 android:id="@+id/tryAgainButton"
                 android:paddingVertical="10dp"
                 android:textAppearance="@style/samuraiTitle20"

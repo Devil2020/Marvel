@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/detailRoot"
+    android:background="@color/colorOfBackground"
+    tools:context=".ui.detail.view.DetailActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7"
+        android:id="@+id/ourGuidline"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/ourGuidline"
+        android:id="@+id/detailSuperHeroImage"
+        android:scaleType="fitXY"
+        />
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/loading"
+        tools:src ="@drawable/spinner_loading"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/ourGuidline"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_margin="10dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/heroNameDetail"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="@style/samuraiTitle20"
+        android:gravity="center"
+        android:text="@string/series"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/heroName"
+        android:layout_marginLeft="20dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/ourGuidline"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="@style/samuraiTitle10"
+        android:gravity="center"
+        android:text="@string/series"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/heroNameDetail"
+        android:layout_marginLeft="20dp"
+        />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="240dp"
+        android:layout_height="312dp"
+        android:layout_marginBottom="30dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/colorOfBackground"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:id="@+id/seriesMovieImage"
+                />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/seriesMovieImageLoading"
+                android:layout_marginTop="80dp"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:paddingStart="42dp"
+                android:layout_below="@id/seriesMovieImage"
+                android:paddingEnd="42dp"
+                android:id="@+id/movieName"
+                android:text="Hero Details"
+                android:textAllCaps="false"
+                android:textAppearance="@style/samuraiTitle15"
+                android:textColor="@color/colorwhite"
+                 />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|top"
+                android:id="@+id/movieDetail"
+                android:layout_below="@id/movieName"
+                android:text="Hero Details"
+                android:textAllCaps="false"
+                android:paddingHorizontal="5dp"
+                android:textColor="@color/colorwhite"
+                android:textAppearance="@style/samuraiTitle10" />
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ourGuidline"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="@style/samuraiTitle20"
+        android:gravity="center"
+        android:text="@string/series"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/choosYourHeroTitle"
+        android:layout_marginLeft="20dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/choosYourHeroTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal"
+        android:id="@+id/seriousRecyclerview"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/series_super_hero_templete"
+        tools:itemCount="4"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

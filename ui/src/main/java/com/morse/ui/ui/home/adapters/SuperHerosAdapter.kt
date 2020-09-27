@@ -1,5 +1,6 @@
 package com.morse.marvel.ui.ui.home.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import com.morse.ui.R
@@ -10,6 +11,8 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.morse.presentation.presentationentity.PresentationSuperHeroItem
+import com.morse.ui.ui.home.view.HomeActivity
+import com.morse.ui.ui.home.view.HomeActivityManager
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
@@ -45,6 +48,11 @@ class SuperHerosAdapter () : RecyclerView.Adapter<SuperHerosAdapter.SuperHeroVie
      public class SuperHeroViewHolder ( override val containerView: View?)  :RecyclerView.ViewHolder(containerView!!) , LayoutContainer{
 
         public fun bindSuperHeroToView (superHero : PresentationSuperHeroItem){
+
+                superHeroCard?.setOnClickListener {
+                    HomeActivityManager.openDetailScreen(containerView?.context!! , superHero)
+                }
+
                 Glide.with(containerView!!).asGif().load(R.drawable.spinner_loading).transform(RoundedCorners(40)).into(loading)
 
                 Picasso.get().load(superHero?.poster)

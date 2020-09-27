@@ -2,5 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.morse.ui">
 
+    <application>
+        <activity android:name=".ui.detail.view.DetailActivity"></activity>
+    </application>
 
 </manifest>
