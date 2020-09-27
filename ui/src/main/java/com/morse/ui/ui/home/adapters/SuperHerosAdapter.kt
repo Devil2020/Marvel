@@ -1,10 +1,12 @@
 package com.morse.marvel.ui.ui.home.adapters
 
 import android.content.Intent
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import com.morse.ui.R
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -20,7 +22,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.super_hero_templete.*
 import java.lang.Exception
 
-class SuperHerosAdapter () : RecyclerView.Adapter<SuperHerosAdapter.SuperHeroViewHolder> (){
+class SuperHerosAdapter (private var activity: HomeActivity) : RecyclerView.Adapter<SuperHerosAdapter.SuperHeroViewHolder> (){
 
     private var listOfSuperHeros = arrayListOf<PresentationSuperHeroItem>()
 
@@ -37,8 +39,9 @@ class SuperHerosAdapter () : RecyclerView.Adapter<SuperHerosAdapter.SuperHeroVie
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onBindViewHolder(holder: SuperHeroViewHolder, position: Int) {
-        holder?.bindSuperHeroToView(listOfSuperHeros?.get(position))
+        holder?.bindSuperHeroToView(listOfSuperHeros?.get(position) , activity)
     }
 
     override fun getItemCount(): Int {
@@ -47,10 +50,11 @@ class SuperHerosAdapter () : RecyclerView.Adapter<SuperHerosAdapter.SuperHeroVie
 
      public class SuperHeroViewHolder ( override val containerView: View?)  :RecyclerView.ViewHolder(containerView!!) , LayoutContainer{
 
-        public fun bindSuperHeroToView (superHero : PresentationSuperHeroItem){
+        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+        public fun bindSuperHeroToView (superHero : PresentationSuperHeroItem, activity : HomeActivity){
 
                 superHeroCard?.setOnClickListener {
-                    HomeActivityManager.openDetailScreen(containerView?.context!! , superHero)
+                    HomeActivityManager.openDetailScreen(containerView?.context!! , superHero , containerView , activity)
                 }
 
                 Glide.with(containerView!!).asGif().load(R.drawable.spinner_loading).transform(RoundedCorners(40)).into(loading)

@@ -5,12 +5,14 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.Window
 import androidx.annotation.RequiresApi
 import androidx.core.view.isGone
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.transition.platform.MaterialArcMotion
 import com.google.android.material.transition.platform.MaterialContainerTransform
+import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
 import com.morse.presentation.presentationentity.PresentationSuperHeroDetail
 import com.morse.presentation.presentationentity.PresentationSuperHeroItem
 import com.morse.ui.R
@@ -18,6 +20,8 @@ import com.morse.ui.ui.detail.adapter.SeriousMovieAdapter
 import com.morse.ui.ui.detail.listener.SeriesMoviesListener
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import com.yarolegovich.discretescrollview.transform.Pivot
+import com.yarolegovich.discretescrollview.transform.ScaleTransformer
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.series_super_hero_templete.*
@@ -35,6 +39,21 @@ class DetailActivity : AppCompatActivity() , SeriesMoviesListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         superHero = intent?.getParcelableExtra<PresentationSuperHeroItem>("superHeroData")!!
+        seriousRecyclerview?.apply {
+            this?.adapter = seriesAdapter
+            this.scrollToPosition(2)
+            this?.setItemTransformer(
+
+                ScaleTransformer.Builder()
+                    .setMaxScale(1.05f)
+                    .setMinScale(0.8f)
+                    .setPivotX(Pivot.X.CENTER) // CENTER is a default one
+                    .setPivotY(Pivot.Y.BOTTOM) // CENTER is a default one
+                    .build()
+
+            )
+            this?.setSlideOnFling(true)
+        }
         renderViews()
         registerActions()
     }
@@ -103,7 +122,6 @@ class DetailActivity : AppCompatActivity() , SeriesMoviesListener {
                     loading?.visibility = View.INVISIBLE
                 }
             })
-
         seriousRecyclerview?.adapter = seriesAdapter
         seriesAdapter?.submitSerious(superHero?.details as ArrayList<PresentationSuperHeroDetail>)
         heroNameDetail?.text = superHero?.quote
@@ -114,6 +132,7 @@ class DetailActivity : AppCompatActivity() , SeriesMoviesListener {
     override fun onSeriesClicked(view: View, detail: PresentationSuperHeroDetail) {
         if (count != 0) {
             if (ourView?.isGone == true) {
+
                 ourView?.isGone = false
                 card?.isGone = true
             }

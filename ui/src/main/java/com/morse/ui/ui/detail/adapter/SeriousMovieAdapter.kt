@@ -26,6 +26,7 @@ class SeriousMovieAdapter (private var listener : SeriesMoviesListener) : Recycl
     public fun submitSerious (data : ArrayList<PresentationSuperHeroDetail>){
         this?.listOfSeriousDetails?.clear()
         this?.listOfSeriousDetails?.addAll(data)
+        this?.notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SeriousMovieViewHolder {

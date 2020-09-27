@@ -37,7 +37,6 @@ class NintyDegressTriangleView @JvmOverloads constructor(
 
         view?.triangleRoot?.setBackground(ColorDrawable(Color.parseColor(colorPrevious)))
 
-
     }
 
     public fun changeColor(colorPrevious: String , colorCurrent : String){

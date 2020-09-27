@@ -1,5 +1,4 @@
 <resources>
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -13,9 +12,27 @@
         <item name="android:textColor">#ffffff</item>
     </style>
 
+    <style name="stayHappy20" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/jezzika</item>
+        <item name="android:textSize">40dp</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
     <style name="samuraiTitle20" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">@font/samureix_regular</item>
+        <item name="android:fontFamily">@font/stay_happy</item>
         <item name="android:textSize">25dp</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="samuraiTitle15" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/stay_happy</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="samuraiTitle10" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/stay_happy</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:textColor">#ffffff</item>
     </style>
 

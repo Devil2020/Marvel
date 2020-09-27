@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/marvelStudioImage"
             android:layout_centerHorizontal="true"
-            android:textAppearance="@style/dotZeroTitle20"
+            android:textAppearance="@style/stayHappy20"
             android:text="@string/choose_your_hero"
             android:id="@+id/choosYourHeroTitle"
             />
