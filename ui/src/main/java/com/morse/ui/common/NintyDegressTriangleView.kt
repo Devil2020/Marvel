@@ -7,12 +7,18 @@ import android.graphics.Path
 import android.graphics.Region
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.TransitionDrawable
+import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewAnimationUtils
 import android.widget.FrameLayout
+import androidx.annotation.ColorInt
+import androidx.annotation.RequiresApi
+import androidx.core.graphics.drawable.DrawableCompat
 import com.morse.ui.R
 import kotlinx.android.synthetic.main.rectangle_layout.view.*
+import kotlin.math.hypot
 
 
 class NintyDegressTriangleView @JvmOverloads constructor(
@@ -37,6 +43,29 @@ class NintyDegressTriangleView @JvmOverloads constructor(
 
         view?.triangleRoot?.setBackground(ColorDrawable(Color.parseColor(colorPrevious)))
 
+    }
+
+
+    fun circularRevealedAtCenter(colorPrevious: Int) {
+        val cx = 0
+        val cy = left
+        val finalRadius = hypot(width.toDouble(), height.toDouble())
+        if (
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                isAttachedToWindow
+            } else {
+                false
+            }
+        ) {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                ViewAnimationUtils.createCircularReveal(this, cx, cy, 0f, finalRadius.toFloat()).apply {
+                    DrawableCompat.setTint(background, colorPrevious)
+                    visibility
+                    duration = 550
+                    start()
+                }
+            }
+        }
     }
 
     public fun changeColor(colorPrevious: String , colorCurrent : String){

@@ -1,6 +1,8 @@
 package com.morse.presentation.viewmodel
 
 //import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableArrayList
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.morse.domain.data.SuperHeroMarvelItem
@@ -21,16 +23,17 @@ class SuperHeroViewModel constructor( private var useCase : GetSuperHerosInforma
 
     public var superHerosResult = MutableLiveData<ResultState<PresentationSuperHeroItem>>()
     public var compositeDisposable = CompositeDisposable ()
-    //public var isLoading : ObservableBoolean = ObservableBoolean()
-    //public var isError : ObservableBoolean = ObservableBoolean()
+    public var isLoading : ObservableBoolean = ObservableBoolean()
+    public var isError : ObservableBoolean = ObservableBoolean()
+    public var superHeros : ObservableArrayList<PresentationSuperHeroItem> = ObservableArrayList<PresentationSuperHeroItem>()
 
 
     init {
         loadSuperHeros()
     }
 
-public fun loadSuperHeros () {
-    //isLoading?.set(true)
+    public fun loadSuperHeros () {
+    isLoading?.set(true)
     //superHerosResult?.postValue(ResultState.isLoading<PresentationSuperHeroItem>(true))
     useCase?.loadIt()
         ?.observeOn(Schedulers.io())?.map {
@@ -59,13 +62,13 @@ public fun loadSuperHeros () {
 
         }?.observeOn(AndroidSchedulers.mainThread())?.subscribe {
             if (it is ResultState.error<PresentationSuperHeroItem>){
-               // isError.set(true)
+                isError.set(true)
             }
             else{
-
+                superHeros.addAll((it as ResultState.success<PresentationSuperHeroItem>)?.result)
             }
             superHerosResult?.postValue(it)
-            //isLoading?.set(false)
+            isLoading?.set(false)
         }?.addTo(compositeDisposable)
 }
 

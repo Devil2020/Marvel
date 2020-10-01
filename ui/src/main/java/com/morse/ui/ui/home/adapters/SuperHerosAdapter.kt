@@ -32,6 +32,8 @@ class SuperHerosAdapter (private var activity: HomeActivity) : RecyclerView.Adap
         this?.notifyDataSetChanged()
     }
 
+    public fun getListOfSuperHeros () = listOfSuperHeros
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuperHeroViewHolder {
         var view = LayoutInflater.from(parent?.context!!).inflate(R.layout.super_hero_templete , parent , false)
         return SuperHeroViewHolder(
