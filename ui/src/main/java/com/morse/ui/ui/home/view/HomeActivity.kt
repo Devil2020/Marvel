@@ -50,10 +50,8 @@ object HomeActivityManager {
 }
 
 class HomeActivity : AppCompatActivity()  {
-    var heros = arrayListOf<PresentationSuperHeroItem>()
     var superHerosAdapter =  SuperHerosAdapter (this)
     val homeViewModel : SuperHeroViewModel by viewModel<SuperHeroViewModel>()
-    var lastIndex = -1
     lateinit var homeDataBinding : ActivityHomeBinding
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -62,34 +60,10 @@ class HomeActivity : AppCompatActivity()  {
         homeDataBinding = DataBindingUtil.setContentView<ActivityHomeBinding>(this ,R.layout.activity_home)
         homeDataBinding.superheroViewModel = homeViewModel
         superHeroview?.apply {
-                this?.addOnItemChangedListener { viewHolder, adapterPosition ->
-                    if (lastIndex != adapterPosition) {
-                        if (adapterPosition == 0) {
-
-                           // nintyDegreeTriangle?.circularRevealedAtCenter(heros?.get(adapterPosition)?.color!!)
-                        } else {
-//
-//                            nintyDegreeTriangle?.changeColor(
-//                                heros?.get(adapterPosition - 1)?.color!!,
-//                                heros?.get(adapterPosition)?.color!!
-//                            )
-                        }
-                    }
-                    lastIndex = adapterPosition
-                }
-                this.scrollToPosition(1)
                 this?.adapter = superHerosAdapter
-                this?.setItemTransformer(
-
-                    ScaleTransformer.Builder()
-                        .setMaxScale(1.05f)
-                        .setMinScale(0.8f)
-                        .setPivotX(Pivot.X.CENTER) // CENTER is a default one
-                        .setPivotY(Pivot.Y.BOTTOM) // CENTER is a default one
-                        .build()
-
-                )
-                this?.setSlideOnFling(true)
+                this?.addOnItemChangedListener { viewHolder, adapterPosition ->
+                    nintyDegreeTriangle?.circularRevealedAtCenter(Color.parseColor(superHerosAdapter?.getListOfSuperHeros().get(adapterPosition).color!!))
+                }
         }
     }
 

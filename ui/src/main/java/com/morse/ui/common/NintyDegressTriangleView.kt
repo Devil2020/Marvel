@@ -58,10 +58,10 @@ class NintyDegressTriangleView @JvmOverloads constructor(
             }
         ) {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                ViewAnimationUtils.createCircularReveal(this, cx, cy, 0f, finalRadius.toFloat()).apply {
-                    DrawableCompat.setTint(background, colorPrevious)
+                ViewAnimationUtils.createCircularReveal(view?.triangleRoot, height, width, 0f, finalRadius.toFloat()).apply {
+                    view?.triangleRoot?.setBackgroundColor(colorPrevious)
                     visibility
-                    duration = 550
+                    duration = 200
                     start()
                 }
             }

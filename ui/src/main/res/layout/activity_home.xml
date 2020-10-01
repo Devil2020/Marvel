@@ -55,6 +55,7 @@
             android:visibility="@{superheroViewModel.isLoading() == true ? View.INVISIBLE : View.VISIBLE}"
             android:orientation="horizontal"
             android:id="@+id/superHeroview"
+            app:setupDiscreteViewConfigration="@{true}"
             />
 
         <com.facebook.shimmer.ShimmerFrameLayout
