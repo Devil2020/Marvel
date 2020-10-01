@@ -1,5 +1,6 @@
 package com.morse.presentation.viewmodel
 
+//import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.morse.domain.data.SuperHeroMarvelItem
@@ -20,13 +21,17 @@ class SuperHeroViewModel constructor( private var useCase : GetSuperHerosInforma
 
     public var superHerosResult = MutableLiveData<ResultState<PresentationSuperHeroItem>>()
     public var compositeDisposable = CompositeDisposable ()
+    //public var isLoading : ObservableBoolean = ObservableBoolean()
+    //public var isError : ObservableBoolean = ObservableBoolean()
+
 
     init {
         loadSuperHeros()
     }
 
 public fun loadSuperHeros () {
-    superHerosResult?.postValue(ResultState.isLoading<PresentationSuperHeroItem>(true))
+    //isLoading?.set(true)
+    //superHerosResult?.postValue(ResultState.isLoading<PresentationSuperHeroItem>(true))
     useCase?.loadIt()
         ?.observeOn(Schedulers.io())?.map {
             if ((it is NetworkState.success<SuperHeroMarvelItem>)) {
@@ -42,7 +47,8 @@ public fun loadSuperHeros () {
                             )
                         }, it?.id, it?.name, it?.poster, it?.quote)
                     } as ArrayList<PresentationSuperHeroItem>)
-            } else {
+            }
+            else {
                 if ((it as NetworkState.error<SuperHeroMarvelItem>)?.errorType == NetworkErrorType.TIME_OUT) {
                     ResultState.error<PresentationSuperHeroItem>(ResultErrorState.TIME_OUT)
                 } else {
@@ -50,8 +56,16 @@ public fun loadSuperHeros () {
                 }
 
             }
+
         }?.observeOn(AndroidSchedulers.mainThread())?.subscribe {
+            if (it is ResultState.error<PresentationSuperHeroItem>){
+               // isError.set(true)
+            }
+            else{
+
+            }
             superHerosResult?.postValue(it)
+            //isLoading?.set(false)
         }?.addTo(compositeDisposable)
 }
 
