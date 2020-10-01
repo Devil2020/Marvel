@@ -119,6 +119,7 @@
                 android:textAppearance="@style/samuraiTitle20"
                 android:background="@drawable/try_again_bg"
                 />
+
         </RelativeLayout>
 
 </RelativeLayout>

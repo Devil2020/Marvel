@@ -34,6 +34,7 @@ class SuperHeroViewModel constructor( private var useCase : GetSuperHerosInforma
 
     public fun loadSuperHeros () {
     isLoading?.set(true)
+    isError.set(false)
     //superHerosResult?.postValue(ResultState.isLoading<PresentationSuperHeroItem>(true))
     useCase?.loadIt()
         ?.observeOn(Schedulers.io())?.map {
@@ -65,6 +66,7 @@ class SuperHeroViewModel constructor( private var useCase : GetSuperHerosInforma
                 isError.set(true)
             }
             else{
+                isError.set(false)
                 superHeros.addAll((it as ResultState.success<PresentationSuperHeroItem>)?.result)
             }
             superHerosResult?.postValue(it)
