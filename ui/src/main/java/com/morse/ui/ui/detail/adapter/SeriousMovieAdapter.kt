@@ -23,7 +23,7 @@ class SeriousMovieAdapter (private var listener : SeriesMoviesListener) : Recycl
 
     private var listOfSeriousDetails = arrayListOf<PresentationSuperHeroDetail>()
 
-    public fun submitSerious (data : ArrayList<PresentationSuperHeroDetail>){
+    public fun submitSerious (data : List<PresentationSuperHeroDetail>){
         this?.listOfSeriousDetails?.clear()
         this?.listOfSeriousDetails?.addAll(data)
         this?.notifyDataSetChanged()

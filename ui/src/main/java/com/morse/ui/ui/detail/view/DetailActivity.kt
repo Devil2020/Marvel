@@ -8,6 +8,9 @@ import android.view.View
 import android.view.Window
 import androidx.annotation.RequiresApi
 import androidx.core.view.isGone
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableArrayList
+import androidx.databinding.ObservableBoolean
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.transition.platform.MaterialArcMotion
@@ -16,7 +19,10 @@ import com.google.android.material.transition.platform.MaterialContainerTransfor
 import com.morse.presentation.presentationentity.PresentationSuperHeroDetail
 import com.morse.presentation.presentationentity.PresentationSuperHeroItem
 import com.morse.ui.R
+import com.morse.ui.databinding.ActivityDetailBinding
+import com.morse.ui.databinding.ActivityHomeBinding
 import com.morse.ui.ui.detail.adapter.SeriousMovieAdapter
+import com.morse.ui.ui.detail.listener.AnimationListener
 import com.morse.ui.ui.detail.listener.SeriesMoviesListener
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -33,43 +39,38 @@ class DetailActivity : AppCompatActivity() , SeriesMoviesListener {
     var superHero = PresentationSuperHeroItem()
     lateinit var ourView : View
     var count = 0
+    lateinit var detailDataBinding : ActivityDetailBinding
+    lateinit var animationListener: AnimationListener
+    lateinit var bigPictureLoadedObservableBoolean: ObservableBoolean
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
+        detailDataBinding = DataBindingUtil.setContentView<ActivityDetailBinding>(this ,R.layout.activity_detail)
         superHero = intent?.getParcelableExtra<PresentationSuperHeroItem>("superHeroData")!!
-        seriousRecyclerview?.apply {
-            this?.adapter = seriesAdapter
-            this.scrollToPosition(2)
-            this?.setItemTransformer(
-
-                ScaleTransformer.Builder()
-                    .setMaxScale(1.05f)
-                    .setMinScale(0.8f)
-                    .setPivotX(Pivot.X.CENTER) // CENTER is a default one
-                    .setPivotY(Pivot.Y.BOTTOM) // CENTER is a default one
-                    .build()
-
-            )
-            this?.setSlideOnFling(true)
+        detailDataBinding?.superHero = ObservableArrayList<PresentationSuperHeroDetail>()?.apply {
+            addAll(superHero?.details!!)
         }
-        renderViews()
-        registerActions()
-    }
+        animationListener = object : AnimationListener {
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun registerActions (){
+            override fun onCardClicked() {
+                android.transition.TransitionManager.beginDelayedTransition(
+                    detailRoot,
+                    getTransform(card, ourView)
+                )
+                card?.isGone = true
+                ourView?.isGone = false
+            }
 
-    card?.setOnClickListener {
-        android.transition.TransitionManager.beginDelayedTransition(
-            detailRoot,
-            getTransform(card, ourView)
-        )
-        card?.isGone = true
-        ourView?.isGone = false
-    }
+            override fun onSeriesRecommendationClicked(detail: PresentationSuperHeroDetail) {
+            }
 
+        }
+        detailDataBinding?.listener = animationListener
+        seriousRecyclerview?.adapter = seriesAdapter
+        bigPictureLoadedObservableBoolean = ObservableBoolean()
+        detailDataBinding?.superHeroData = superHero
+        seriesAdapter?.submitSerious(superHero?.details as ArrayList<PresentationSuperHeroDetail>)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -84,52 +85,8 @@ class DetailActivity : AppCompatActivity() , SeriesMoviesListener {
         }
     }
 
-    private fun renderDetail (detail : PresentationSuperHeroDetail){
-
-        Glide.with(card!!).asGif().load(R.drawable.spinner_loading).transform(
-            RoundedCorners(30)
-        ).into(seriesMovieImageLoading)
-
-        Picasso.get().load(detail?.poster)
-            .transform(RoundedCornersTransformation(30 , 0))
-            .into(seriesMovieImage , object : Callback {
-                override fun onSuccess() {
-                    seriesMovieImageLoading?.visibility = View.INVISIBLE
-                }
-
-                override fun onError(e: Exception?) {
-                    seriesMovieImageLoading?.visibility = View.INVISIBLE
-                }
-            })
-
-        movieName?.text = detail?.name
-        movieDetail?.text = detail?.plot
-    }
-
-    private fun renderViews (){
-        Glide.with(detailRoot!!).asGif().load(R.drawable.spinner_loading).transform(
-            RoundedCorners(25)
-        ).into(loading)
-
-        Picasso.get().load(superHero?.poster)
-            .transform(RoundedCornersTransformation(25 , 0))
-            .into(detailSuperHeroImage , object : Callback {
-                override fun onSuccess() {
-                    loading?.visibility = View.INVISIBLE
-                }
-
-                override fun onError(e: Exception?) {
-                    loading?.visibility = View.INVISIBLE
-                }
-            })
-        seriousRecyclerview?.adapter = seriesAdapter
-        seriesAdapter?.submitSerious(superHero?.details as ArrayList<PresentationSuperHeroDetail>)
-        heroNameDetail?.text = superHero?.quote
-        heroName?.text = superHero?.name
-    }
-
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    override fun onSeriesClicked(view: View, detail: PresentationSuperHeroDetail) {
+    public fun animateCard (view: View){
         if (count != 0) {
             if (ourView?.isGone == true) {
 
@@ -145,8 +102,14 @@ class DetailActivity : AppCompatActivity() , SeriesMoviesListener {
         )
         ourView?.isGone = true
         card?.isGone = false
-        renderDetail(detail)
         count ++
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    override fun onSeriesClicked(view: View, detail: PresentationSuperHeroDetail) {
+        animateCard(view)
+        detailDataBinding.superHeroDetail = detail
+
     }
 
 }

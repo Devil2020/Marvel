@@ -1,14 +1,49 @@
 package com.morse.ui.ui.Extensions
 
+import android.view.View
+import com.morse.ui.R
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.ObservableBoolean
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.morse.marvel.ui.ui.home.adapters.SuperHerosAdapter
 import com.morse.presentation.presentationentity.PresentationSuperHeroDetail
 import com.morse.presentation.presentationentity.PresentationSuperHeroItem
 import com.morse.ui.ui.detail.adapter.SeriousMovieAdapter
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 import com.yarolegovich.discretescrollview.DiscreteScrollView
 import com.yarolegovich.discretescrollview.transform.Pivot
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
+import kotlinx.android.synthetic.main.activity_detail.*
+import java.lang.Exception
+
+@BindingAdapter("loadImageUsingGlide")
+fun loadImageUsingGilde ( image : ImageView , imageUrl : Boolean){
+    Glide.with(image?.context).asGif().load(R.drawable.spinner_loading).transform(
+        RoundedCorners(25)
+    ).into(image)
+}
+
+@BindingAdapter(value = [ "loadImageUsingPicassoFail" ,"loadImageUsingPicassoSuccess"]  , requireAll = true)
+fun loadImageUsingPicasso( image : ImageView , oldImage: View? ,newImage : String ?){
+
+    oldImage?.visibility= View.VISIBLE
+    Picasso.get().load(newImage).transform(RoundedCornersTransformation(25 , 0))
+        .into(image , object : Callback {
+            override fun onSuccess() {
+                oldImage?.visibility= View.INVISIBLE
+            }
+
+            override fun onError(e: Exception?) {
+                oldImage?.visibility= View.INVISIBLE
+            }
+        })
+}
+
 
 @BindingAdapter("adapterForSuperheros")
 fun bindAdapterSuperHerossList(
@@ -25,8 +60,6 @@ fun bindAdapterSuperHerossList(
         }
     }
 }
-
-
 
 @BindingAdapter("adapterForSuperherosDetails")
 fun bindAdapterSuperHerossListDetails(
@@ -47,22 +80,6 @@ fun bindAdapterSuperHerossListDetails(
 @BindingAdapter("setupDiscreteViewConfigration")
 fun addDiscreteViewConfig (discreteScrollView: DiscreteScrollView , isConfigerd : Boolean){
 
-    discreteScrollView?.addOnItemChangedListener { viewHolder, adapterPosition ->
-//                    if (lastIndex != adapterPosition) {
-//                        if (adapterPosition == 0) {
-//
-//                           // nintyDegreeTriangle?.circularRevealedAtCenter(heros?.get(adapterPosition)?.color!!)
-//                        } else {
-////
-////                            nintyDegreeTriangle?.changeColor(
-////                                heros?.get(adapterPosition - 1)?.color!!,
-////                                heros?.get(adapterPosition)?.color!!
-////                            )
-//                        }
-//                    }
-//                    lastIndex = adapterPosition
-    }
-
     discreteScrollView.scrollToPosition(1)
     discreteScrollView?.setItemTransformer(
 
@@ -76,13 +93,3 @@ fun addDiscreteViewConfig (discreteScrollView: DiscreteScrollView , isConfigerd 
     )
     discreteScrollView?.setSlideOnFling(true)
 }
-
-
-//@BindingAdapter("bindOnItemChanged" )
-//fun bindOnItemChanged(view: DiscreteScrollView, adapter: SuperHerosAdapter, pointView: View) {
-//    view.addOnItemChangedListener { viewHolder, _ ->
-//        viewHolder?.adapterPosition.apply {
-//            ( pointView as NintyDegressTriangleView )?.circularRevealedAtCenter(Color.parseColor(adapter.getListOfSuperHeros().get(this!!).color!!))
-//        }
-//    }
-//}

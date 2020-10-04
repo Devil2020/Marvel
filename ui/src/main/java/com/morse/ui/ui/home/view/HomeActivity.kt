@@ -55,7 +55,7 @@ class HomeActivity : AppCompatActivity()  {
     lateinit var homeDataBinding : ActivityHomeBinding
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState : Bundle?) {
         super.onCreate(savedInstanceState)
         homeDataBinding = DataBindingUtil.setContentView<ActivityHomeBinding>(this ,R.layout.activity_home)
         homeDataBinding.superheroViewModel = homeViewModel
