@@ -2,9 +2,11 @@
 <layout>
 
     <data>
+
         <import type="androidx.databinding.ObservableArrayList" alias="ObservableList"/>
         <import type="com.morse.presentation.presentationentity.PresentationSuperHeroDetail" alias="PresentationSuperHeroDetail" />
         <import type="com.morse.ui.ui.detail.listener.AnimationListener" alias="AnimationListener"/>
+        <import type="com.morse.ui.ui.detail.listener.AbstractListener" alias="AbstractListener"/>
         <import type="androidx.databinding.ObservableBoolean" alias="ObservableBoolean"/>
         <import type="com.morse.presentation.presentationentity.PresentationSuperHeroItem" alias="PresentationSuperHeroItem"/>
 
@@ -17,6 +19,9 @@
         <variable
             name="listener"
             type="AnimationListener" />
+        <variable
+            name="abstractListener"
+            type="AbstractListener" />
         <variable
             name="superHeroDetail"
             type="PresentationSuperHeroDetail" />
@@ -32,6 +37,7 @@
         android:background="@color/colorOfBackground"
         tools:context=".ui.detail.view.DetailActivity">
 
+
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,7 +46,23 @@
         android:id="@+id/ourGuidline"
         />
 
-    <ImageView
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="normal"
+            app:tint="@android:color/white"
+            app:setCurrentFabBackground="@{superHeroData.color}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            app:borderWidth="0dp"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"
+            android:id="@+id/backToHomeBtn"
+            android:onClick="@{()->abstractListener.navigateBack()}"
+            />
+
+        <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -52,7 +74,7 @@
         android:transitionName="superHeroImage"
         />
 
-    <ImageView
+        <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:id="@+id/loading"
@@ -65,7 +87,7 @@
         android:layout_margin="10dp"
         />
 
-    <androidx.appcompat.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/heroNameDetail"
@@ -80,7 +102,7 @@
         android:layout_marginLeft="20dp"
         />
 
-    <androidx.appcompat.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/ourGuidline"
@@ -95,7 +117,7 @@
         android:layout_marginLeft="20dp"
         />
 
-    <com.google.android.material.card.MaterialCardView
+        <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         android:layout_width="240dp"
         android:layout_height="360dp"
@@ -168,7 +190,7 @@
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <androidx.appcompat.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/ourGuidline"
@@ -183,7 +205,7 @@
         android:layout_marginLeft="20dp"
         />
 
-    <com.yarolegovich.discretescrollview.DiscreteScrollView
+        <com.yarolegovich.discretescrollview.DiscreteScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/choosYourHeroTitle"

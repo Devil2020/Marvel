@@ -22,6 +22,7 @@ import com.morse.ui.R
 import com.morse.ui.databinding.ActivityDetailBinding
 import com.morse.ui.databinding.ActivityHomeBinding
 import com.morse.ui.ui.detail.adapter.SeriousMovieAdapter
+import com.morse.ui.ui.detail.listener.AbstractListener
 import com.morse.ui.ui.detail.listener.AnimationListener
 import com.morse.ui.ui.detail.listener.SeriesMoviesListener
 import com.squareup.picasso.Callback
@@ -33,7 +34,7 @@ import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.series_super_hero_templete.*
 import java.lang.Exception
 
-class DetailActivity : AppCompatActivity() , SeriesMoviesListener {
+class DetailActivity : AppCompatActivity() , SeriesMoviesListener , AbstractListener{
 
     var seriesAdapter = SeriousMovieAdapter(this)
     var superHero = PresentationSuperHeroItem()
@@ -70,7 +71,12 @@ class DetailActivity : AppCompatActivity() , SeriesMoviesListener {
         seriousRecyclerview?.adapter = seriesAdapter
         bigPictureLoadedObservableBoolean = ObservableBoolean()
         detailDataBinding?.superHeroData = superHero
+        detailDataBinding?.abstractListener = this
         seriesAdapter?.submitSerious(superHero?.details as ArrayList<PresentationSuperHeroDetail>)
+    }
+
+    override fun onBackPressed() {
+
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -110,6 +116,10 @@ class DetailActivity : AppCompatActivity() , SeriesMoviesListener {
         animateCard(view)
         detailDataBinding.superHeroDetail = detail
 
+    }
+
+    override fun navigateBack() {
+        this.finish()
     }
 
 }

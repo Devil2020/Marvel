@@ -1,5 +1,7 @@
 package com.morse.ui.ui.Extensions
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.View
 import com.morse.ui.R
 import android.widget.ImageView
@@ -8,6 +10,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.morse.marvel.ui.ui.home.adapters.SuperHerosAdapter
 import com.morse.presentation.presentationentity.PresentationSuperHeroDetail
 import com.morse.presentation.presentationentity.PresentationSuperHeroItem
@@ -92,4 +95,11 @@ fun addDiscreteViewConfig (discreteScrollView: DiscreteScrollView , isConfigerd 
 
     )
     discreteScrollView?.setSlideOnFling(true)
+}
+
+@BindingAdapter("setCurrentFabBackground")
+fun setFabBackground (fab : FloatingActionButton , color : String){
+    fab?.setBackgroundColor(Color.parseColor(color))
+    fab?.rippleColor = (Color.parseColor(color))
+    fab?.backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
 }
