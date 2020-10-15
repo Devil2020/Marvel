@@ -3,7 +3,7 @@
     package="com.morse.ui">
 
     <application>
-        <activity android:name=".ui.detail.view.DetailActivity"></activity>
+        <activity android:name=".ui.detail.view.DetailActivity" android:parentActivityName=".ui.home.view.HomeActivity" android:singleUser="true"></activity>
     </application>
 
 </manifest>

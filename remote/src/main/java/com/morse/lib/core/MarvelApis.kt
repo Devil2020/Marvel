@@ -3,6 +3,7 @@ package com.morse.remote.core
 import com.morse.lib.core.Retry
 import com.morse.lib.entity.MarvelHerosItem
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 
 open interface MarvelApis {

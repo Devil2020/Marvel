@@ -47,9 +47,8 @@ class NintyDegressTriangleView @JvmOverloads constructor(
 
 
     fun circularRevealedAtCenter(colorPrevious: Int) {
-        val cx = 0
-        val cy = left
-        val finalRadius = hypot(width.toDouble(), height.toDouble())
+
+        val finalRadius = hypot(width.toDouble() /2, height.toDouble()/2)
         if (
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
                 isAttachedToWindow
@@ -58,10 +57,10 @@ class NintyDegressTriangleView @JvmOverloads constructor(
             }
         ) {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                ViewAnimationUtils.createCircularReveal(view?.triangleRoot, height, width, 0f, finalRadius.toFloat()).apply {
+                ViewAnimationUtils.createCircularReveal(view?.triangleRoot, view?.triangleRoot?.right!!, view?.triangleRoot?.bottom!!, 0f, finalRadius.toFloat()).apply {
                     view?.triangleRoot?.setBackgroundColor(colorPrevious)
                     visibility
-                    duration = 200
+                    duration = 800
                     start()
                 }
             }

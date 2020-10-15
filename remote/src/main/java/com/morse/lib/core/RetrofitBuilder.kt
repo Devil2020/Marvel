@@ -33,13 +33,7 @@ object RetrofitBuilder {
         return getInstance()?.create(MarvelApis::class.java)
     }
 
-//    private fun getCache () : Cache{
-//        val cacheSize = 10 * 1024 * 1024 // 10 MB
-//
-//        return Cache(
-//            Environment.getDownloadCacheDirectory(), cacheSize?.toLong()
-//        )
-//    }
+
 
     private fun getClientInstance () : OkHttpClient {
 

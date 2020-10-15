@@ -76,7 +76,7 @@ class DetailActivity : AppCompatActivity() , SeriesMoviesListener , AbstractList
     }
 
     override fun onBackPressed() {
-
+        this.finish()
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
