@@ -18,6 +18,6 @@
 + project will follow MVVM pattern so each activity have it own ViewModel to handle actions or any User Interactions
 
 ### Let's explore Architecture Components
-According to [Android Documentation](https://developer.android.com/topic/libraries/architecture), Architecture Components are a set of Android libraries for structuring your app in a way that is robust, testable, and maintainable
+- According to [Android Documentation](https://developer.android.com/topic/libraries/architecture), Architecture Components are a set of Android libraries for structuring your app in a way that is robust, testable, and maintainable
 <img   width="415" src=https://github.com/Devil2020/Marvel/blob/origin/images/im2.png>
 
