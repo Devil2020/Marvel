@@ -4,4 +4,4 @@
 > To cut it short , if you want to test it , Please press on [this](https://github.com/Devil2020/Marvel/releases) and Download the Last Version . 
 
 ###  Screen Shots
-<img   width="415" src=https://github.com/Devil2020/Marvel/blob/origin/images/im2.png> <img   width="415"  src=https://github.com/Devil2020/Marvel/blob/origin/images/im3.png.png>
+<img   width="415" src=https://github.com/Devil2020/Marvel/blob/origin/images/im2.png> <img   width="415"  src=https://github.com/Devil2020/Marvel/blob/origin/images/im3.png>
