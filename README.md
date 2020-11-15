@@ -7,10 +7,10 @@
 <img   width="415" src=https://github.com/Devil2020/Marvel/blob/origin/images/im2.png> <img   width="415"  src=https://github.com/Devil2020/Marvel/blob/origin/images/im3.png>
 
 ### Project Modules
-    - App Layer;
-    - Ui Layer;
-    - Presentation Layer;
-    - Domain Layer;
-    - Data Layer;
-    - Remote Layer;
+    * App Layer;
+    * Ui Layer;
+    * Presentation Layer;
+    * Domain Layer;
+    * Data Layer;
+    * Remote Layer;
 
