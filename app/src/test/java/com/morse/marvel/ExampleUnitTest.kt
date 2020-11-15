@@ -1,5 +1,8 @@
 package com.morse.marvel
 
+import android.util.Log
+import io.reactivex.Observable
+import io.reactivex.ObservableTransformer
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -11,53 +14,11 @@ import org.junit.Assert.*
  */
 
 
-open interface Root {
-
-    public fun Kerollos (){
-        println("In : Kerollos")
-    }
-
-}
-
-open class Basic1  {
-
-    public fun sayHi(){
-        println("In : Parent1")
-    }
-
-}
-
-open class Basic2 {
-
-    public fun sayHi(){
-        println("In : Parent2")
-    }
-
-}
-
-class Vechile : Basic1() , Root {
-
-    public fun VV () {
-        println("In : vv")
-        Kerollos()
-    }
-
-}
-
-class Animal : Basic2() , Root {
-
-    public fun AA () {
-        println("In : vv")
-        Kerollos()
-    }
-
-
-}
 
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        var animal = Animal()
-        animal?.AA()
+
+
     }
 }

@@ -6,10 +6,10 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/app_icon"
+        android:icon="@drawable/ic_me"
         android:label="@string/app_name"
         android:name=".base.MarvelApplication"
-        android:roundIcon="@drawable/app_icon"
+        android:roundIcon="@drawable/ic_me"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.morse.ui.ui.home.view.HomeActivity">

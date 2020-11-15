@@ -26,18 +26,18 @@ class SuperHeroViewModel constructor( private var useCase : GetSuperHerosInforma
 
     init {
         loadSuperHeros()
-
-
     }
 
     public fun loadSuperHeros () {
     isLoading?.set(true)
     isError.set(false)
-    //superHerosResult?.postValue(ResultState.isLoading<PresentationSuperHeroItem>(true))
     useCase?.loadIt()
-        ?.observeOn(Schedulers.io())?.map {
+        ?.observeOn(Schedulers.io())
+        ?.map {
             uiMapper?.performMap(it)
-        }?.observeOn(AndroidSchedulers.mainThread())?.subscribe {
+        }
+        ?.observeOn(AndroidSchedulers.mainThread())
+        ?.subscribe {
             if (it is ResultState.error<PresentationSuperHeroItem>){
                 isError.set(true)
             }

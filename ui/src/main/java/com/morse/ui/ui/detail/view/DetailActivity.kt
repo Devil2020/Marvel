@@ -7,10 +7,12 @@ import android.os.Bundle
 import android.view.View
 import android.view.Window
 import androidx.annotation.RequiresApi
+import androidx.core.view.ViewCompat
 import androidx.core.view.isGone
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableBoolean
+import androidx.transition.Slide
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.transition.platform.MaterialArcMotion
@@ -47,6 +49,13 @@ class DetailActivity : AppCompatActivity() , SeriesMoviesListener , AbstractList
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setEnterSharedElementCallback(MaterialContainerTransformSharedElementCallback())
+        setExitSharedElementCallback(MaterialContainerTransformSharedElementCallback())
+        setupDataBinding()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun setupDataBinding (){
         detailDataBinding = DataBindingUtil.setContentView<ActivityDetailBinding>(this ,R.layout.activity_detail)
         superHero = intent?.getParcelableExtra<PresentationSuperHeroItem>("superHeroData")!!
         detailDataBinding?.superHero = ObservableArrayList<PresentationSuperHeroDetail>()?.apply {

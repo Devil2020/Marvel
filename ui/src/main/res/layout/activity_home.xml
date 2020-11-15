@@ -5,10 +5,15 @@
 
         <import type="com.morse.presentation.viewmodel.SuperHeroViewModel" />
         <import type="android.view.View" />
+        <import type="androidx.databinding.ObservableBoolean"/>
 
         <variable
             name="superheroViewModel"
             type="com.morse.presentation.viewmodel.SuperHeroViewModel" />
+
+        <variable
+            name="afterLoadingFinish"
+            type="androidx.databinding.ObservableBoolean" />
 
     </data>
 
@@ -21,107 +26,125 @@
         tools:visibility="invisible"
         tools:context=".ui.home.view.HomeActivity">
 
-        <com.morse.marvel.common.NintyDegressTriangleView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:id="@+id/nintyDegreeTriangle"
-            />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:src="@drawable/marvel"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/marvelStudioImage"
-            android:contentDescription="@string/todo" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/marvelStudioImage"
-            android:layout_centerHorizontal="true"
-            android:textAppearance="@style/stayHappy20"
-            android:text="@string/choose_your_hero"
-            android:id="@+id/choosYourHeroTitle"
-            />
-
-        <com.yarolegovich.discretescrollview.DiscreteScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/choosYourHeroTitle"
-            android:layout_marginTop="40dp"
-            app:adapterForSuperheros="@{superheroViewModel.superHeros}"
-            android:visibility="@{superheroViewModel.isLoading() == true ? View.INVISIBLE : View.VISIBLE}"
-            android:orientation="horizontal"
-            android:id="@+id/superHeroview"
-            app:setupDiscreteViewConfigration="@{true}"
-            />
-
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/choosYourHeroTitle"
-            android:layout_marginTop="40dp"
-            android:visibility="@{superheroViewModel.isLoading() == true ? View.VISIBLE : View.INVISIBLE}"
-            android:layout_marginHorizontal="0dp"
-            android:layout_marginBottom="0dp"
-            android:id="@+id/loadingShimmerLayout"
-            >
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/shimmer_background"
-                android:layout_margin="20dp"
-                />
-        </com.facebook.shimmer.ShimmerFrameLayout>
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/choosYourHeroTitle"
-            android:layout_marginHorizontal="20dp"
-            android:visibility="@{superheroViewModel.isError() == true ? View.VISIBLE : View.INVISIBLE}"
-            android:layout_marginTop="40dp"
-            android:id="@+id/noInternetRoot">
+            android:id="@+id/dataDesign"
+            android:visibility="@{afterLoadingFinish == true ? View.VISIBLE : View.INVISIBLE}"
+            >
+
+            <com.morse.marvel.common.NintyDegressTriangleView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/nintyDegreeTriangle"
+
+                />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_no_internet"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:src="@drawable/marvel"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/noInternetImage"
-                android:layout_alignParentTop="true"/>
+                android:id="@+id/marvelStudioImage"
+                android:contentDescription="@string/todo" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" Error "
-                android:gravity="center"
-                android:textAppearance="@style/samuraiTitle20"
-                android:layout_below="@+id/noInternetImage"
+                android:layout_below="@id/marvelStudioImage"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/errorText"
-                android:layout_marginTop="40dp"/>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/errorText"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="40dp"
-                android:text="Try Again"
-                android:paddingHorizontal="20dp"
-                android:textAllCaps="false"
-                android:onClick="@{()->superheroViewModel.loadSuperHeros()}"
-                android:id="@+id/tryAgainButton"
-                android:paddingVertical="10dp"
-                android:textAppearance="@style/samuraiTitle20"
-                android:background="@drawable/try_again_bg"
+                android:textAppearance="@style/stayHappy20"
+                android:text="@string/choose_your_hero"
+                android:id="@+id/choosYourHeroTitle"
                 />
 
+            <com.yarolegovich.discretescrollview.DiscreteScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/choosYourHeroTitle"
+                android:layout_marginTop="40dp"
+                app:adapterForSuperheros="@{superheroViewModel.superHeros}"
+                android:visibility="@{superheroViewModel.isLoading() == true ? View.INVISIBLE : View.VISIBLE}"
+                android:orientation="horizontal"
+                android:id="@+id/superHeroview"
+                app:setupDiscreteViewConfigration="@{true}"
+                />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/choosYourHeroTitle"
+                android:layout_marginTop="40dp"
+                android:visibility="@{superheroViewModel.isLoading() == true ? View.VISIBLE : View.INVISIBLE}"
+                android:layout_marginHorizontal="0dp"
+                android:layout_marginBottom="0dp"
+                android:id="@+id/loadingShimmerLayout"
+                >
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/shimmer_background"
+                    android:layout_margin="20dp"
+                    />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/choosYourHeroTitle"
+                android:layout_marginHorizontal="20dp"
+                android:visibility="@{superheroViewModel.isError() == true ? View.VISIBLE : View.INVISIBLE}"
+                android:layout_marginTop="40dp"
+                android:id="@+id/noInternetRoot">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_no_internet"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/noInternetImage"
+                    android:layout_alignParentTop="true"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Error "
+                    android:gravity="center"
+                    android:textAppearance="@style/samuraiTitle20"
+                    android:layout_below="@+id/noInternetImage"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/errorText"
+                    android:layout_marginTop="40dp"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/errorText"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="40dp"
+                    android:text="Try Again"
+                    android:paddingHorizontal="20dp"
+                    android:textAllCaps="false"
+                    android:onClick="@{()->superheroViewModel.loadSuperHeros()}"
+                    android:id="@+id/tryAgainButton"
+                    android:paddingVertical="10dp"
+                    android:textAppearance="@style/samuraiTitle20"
+                    android:background="@drawable/try_again_bg"
+                    />
+
+            </RelativeLayout>
+
         </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/inkRippleView"
+            android:background="@color/colorPrimaryDark"
+            android:visibility="@{afterLoadingFinish == true ? View.INVISIBLE : View.VISIBLE}"
+            />
 
 </RelativeLayout>
 

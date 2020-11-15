@@ -71,7 +71,11 @@ dependencies {
     implementation viewPager2
     implementation dotIndicator
     implementation navigator
-
+    testImplementation  mockWebServer
+    testImplementation junitTest
+    testImplementation junitImplementation
+    testImplementation 'androidx.test:rules:1.2.0'
+    testImplementation mockito
     implementation recyclerview
 
 }

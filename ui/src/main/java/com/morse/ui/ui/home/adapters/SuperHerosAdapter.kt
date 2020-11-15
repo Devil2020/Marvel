@@ -13,8 +13,8 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.morse.presentation.presentationentity.PresentationSuperHeroItem
+import com.morse.ui.ui.Extensions.openDetailScreen
 import com.morse.ui.ui.home.view.HomeActivity
-import com.morse.ui.ui.home.view.HomeActivityManager
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
@@ -56,7 +56,7 @@ class SuperHerosAdapter (private var activity: HomeActivity) : RecyclerView.Adap
         public fun bindSuperHeroToView (superHero : PresentationSuperHeroItem, activity : HomeActivity){
 
                 superHeroCard?.setOnClickListener {
-                    HomeActivityManager.openDetailScreen(containerView?.context!! , superHero , containerView , activity)
+                   it.openDetailScreen(containerView?.context!! , superHero , superHeroLoadingImage ,loading , activity)
                 }
 
                 Glide.with(containerView!!).asGif().load(R.drawable.spinner_loading).transform(RoundedCorners(40)).into(loading)

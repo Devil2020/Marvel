@@ -87,6 +87,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_margin="10dp"
+        android:transitionName="superHeroImageLoading"
         />
 
         <androidx.appcompat.widget.AppCompatTextView
