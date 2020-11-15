@@ -30,4 +30,5 @@
 - Clean Architecture
 - Modularization
 - Retrofit2
+- Single Source Of Truth
 
