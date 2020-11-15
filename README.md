@@ -14,3 +14,6 @@
 + Data Layer;
 + Remote Layer;
 
+### Presentation Layer Architecture Pattern
+project will follow MVVM pattern so each activity have it own ViewModel to handle actions or any User Interactions
+
